@@ -17,6 +17,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.geotools.api.filter.Filter;
 import org.geotools.api.filter.FilterFactory;
 import org.geotools.factory.CommonFactoryFinder;
+import java.net.URL;
 
 
 import javax.swing.*;
@@ -45,7 +46,7 @@ public class CountryGuess extends JFrame {
     private FileDataStore dataStore;
     private JMapFrame mapFrame;
     private JMapPane mapPane;
-    private String shapefilepath;
+    private URL shapefileURL;
     public HotCool hotCool;
     public int attempts = 0;
     public HintSystem hintSystem;
@@ -53,9 +54,9 @@ public class CountryGuess extends JFrame {
     /**
      * Constructs a CountryGuess object, initializing the game with a specified shapefile path.
      *
-     * @param shapefilePath The path to the shapefile used for the game.
+     * @param shapefileURL The path to the shapefile used for the game.
      */
-    public CountryGuess(String shapefilePath) {
+    public CountryGuess(URL shapefileURL) {
         // Set up the JFrame properties
         setTitle("Country Guesser");
         setSize(1500, 1200);
@@ -63,14 +64,12 @@ public class CountryGuess extends JFrame {
         setLocationRelativeTo(null);
 
         // Initialize instance variables and objects
-        shapefilepath = shapefilePath; // Set the shapefile path
+        this.shapefileURL = shapefileURL; // Set the shapefile path
         hintSystem = new HintSystem(); // Initialize the HintSystem
 
         
         try {
-            // Load the shapefile and initialize the game
-            File shapefile = new File(shapefilePath);
-            dataStore = FileDataStoreFinder.getDataStore(shapefile);
+            dataStore = FileDataStoreFinder.getDataStore(this.shapefileURL);
             SimpleFeatureSource featureSource = dataStore.getFeatureSource();
             countries = dataStore.getFeatureSource().getFeatures();
 
@@ -100,7 +99,7 @@ public class CountryGuess extends JFrame {
             mapPane.addMouseListener(mapMouseListener);
 
             // Initialize the HotCool game hints and score calculator and start the game
-            hotCool = new HotCool(shapefilePath, targetCountry);
+            hotCool = new HotCool(shapefileURL, targetCountry);
             hotCool.initializeScoreTimer();
             hotCool.startGame();  
 
@@ -133,7 +132,7 @@ public class CountryGuess extends JFrame {
          *
          * @param e The mouse event representing the click.
          */
-        private HotCool hotcool2 = new HotCool(shapefilepath, targetCountry);
+        private HotCool hotcool2 = new HotCool(shapefileURL, targetCountry);
         
         public void mouseClicked(MouseEvent e) {
 

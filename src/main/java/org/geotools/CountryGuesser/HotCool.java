@@ -10,7 +10,7 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import java.io.File;
 import java.io.IOException;
-
+import java.net.URL;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -36,13 +36,13 @@ public class HotCool {
     /**
      * Constructor for HotCool class.
      * Initializes the game with the provided country's name and gets its centroid coordinate.
-     * 
-     * @param shapefilePath Path to the shapefile used for getting country coordinates.
-     * @param countryName The name of the target country.
+     *
+     * @param shapefileURL Path to the shapefile used for getting country coordinates.
+     * @param countryName  The name of the target country.
      * @throws IOException If an I/O error occurs.
      */
-    public HotCool(String shapefilePath, String countryName) {
-        this.targetCountryCoordinate = GeoUtils.getCountryCentroid(shapefilePath, countryName);
+    public HotCool(URL shapefileURL, String countryName) {
+        this.targetCountryCoordinate = GeoUtils.getCountryCentroid(shapefileURL, countryName);
     }
 
     /**
@@ -117,16 +117,15 @@ public class HotCool {
 class GeoUtils {
     /**
      * Gets the centroid coordinate of a country specified by name from a shapefile.
-     * 
-     * @param shapefilePath The path to the shapefile.
-     * @param countryName The name of the country.
+     *
+     * @param shapefileURL The path to the shapefile.
+     * @param countryName  The name of the country.
      * @return The centroid coordinate of the country, or null if not found.
      * @throws IOException If an I/O error occurs.
      */
-    public static Coordinate getCountryCentroid(String shapefilePath, String countryName) {
+    public static Coordinate getCountryCentroid(URL shapefileURL, String countryName) {
         try {
-            File file = new File(shapefilePath);
-            FileDataStore store = FileDataStoreFinder.getDataStore(file);
+            FileDataStore store = FileDataStoreFinder.getDataStore(shapefileURL);
             SimpleFeatureSource featureSource = store.getFeatureSource();
             SimpleFeatureCollection collection = featureSource.getFeatures();
 

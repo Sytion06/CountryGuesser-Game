@@ -17,11 +17,8 @@ To install the necessary dependencies, please use the `pom.xml` file provided wi
 
 ### How to Play
 
-Navigate to the \src\main\java\org\geotools\CountryGuesser\run.java file inside the folder and open it on your favorite IDE, next you need to change the shapefilePath variable to the format below
-
-The directory where you put this folder + \CountryGuesser\target\generated-sources\ne_50m_admin_0_countries.shp
-
-Run the file after you changed the shapefilePath. Upon launching, the application will display a world map and randomly select a country as the target. Your task is to guess this country by clicking on the map. After each guess, the application provides feedback indicating whether your guess is 'hotter' (closer to the target country) or 'cooler' (further from the target country). This process continues until the correct country is guessed.
+ - Run the application with `src/main/java/org.geotools.CountryGuesser/run`. 
+ - Upon launching, the application will display a world map and randomly select a country as the target. Your task is to guess this country by clicking on the map. After each guess, the application provides feedback indicating whether your guess is 'hotter' (closer to the target country) or 'cooler' (further from the target country). This process continues until the correct country is guessed.
 
 ## Limitations and Future Updates
 
